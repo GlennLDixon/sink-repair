@@ -1,4 +1,4 @@
-
+import { getRequest } from "./dataAccess.js"
 export const SinkRepair = () => {
     return `
     <h1>Maude and Merle's Sink Repair</h1>
@@ -7,6 +7,7 @@ export const SinkRepair = () => {
 
     <section class="serviceRequests">
         <h2>Service Requests</h2>
+        ${getRequest()}
     </section>
     `
 }
