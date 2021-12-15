@@ -1,3 +1,5 @@
+import { sendRequest } from "./dataAccess.js"
+
 const mainContainer = document.querySelector("#container")
 
 mainContainer.addEventListener("click", clickEvent => {

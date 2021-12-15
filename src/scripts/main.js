@@ -11,6 +11,12 @@ const render = () => {
         }
     )
 }
-
 render()
+
+mainContainer.addEventListener(
+    "stateChanged",
+    customElement => {
+        render()
+    }
+)
 
