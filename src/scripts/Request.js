@@ -22,6 +22,12 @@ mainContainer.addEventListener(
                    2. plumberId
                    3. date_created
             */
+            const plumbers = {
+                requestId: 1,
+                plumberId: 1,
+                date_created: 1614659931693
+            }
+            
             const completion = { }
 
             /*
