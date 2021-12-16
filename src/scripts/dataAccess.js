@@ -47,3 +47,10 @@ export const deleteRequest = (id) => {
         )
 }
 
+export const saveCompletion = () => {
+    
+}
+
+export const fetchCompletions = () => {
+
+}
