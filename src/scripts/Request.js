@@ -67,14 +67,14 @@ const convertRequestToListElement = (request) => {
 
 export const Requests = () => {
     const requests = getRequest()
-
+    
     let html = `
-        <ul>
-            ${
-                requests.map(convertRequestToListElement).join("")
-            }
-        </ul>
+    <ul>
+    ${
+        requests.map(convertRequestToListElement).join("")
+    }
+    </ul>
     `
-
     return html
+
 }
