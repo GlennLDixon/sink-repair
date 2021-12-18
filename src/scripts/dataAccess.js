@@ -20,12 +20,27 @@ export const fetchRequests = () => {
         )
 }
 
-// getting the requests that is stored within applicationState
+export const fetchPlumbers = () => {
+    return fetch(`${API}/plumbers`)
+        .then(response => response.json())
+        .then(
+            (Plumbers) => {
+                // Store the external state in application state
+                applicationState.plumbers = Plumbers
+            }
+        )
+}
+
+// getting the requests that is stored within applicationState and exporting the data
 export const getRequest = () => {
     return applicationState.requests.map(request => ({...request}))
 }
 
-// 
+export const getPlumbers = () => {
+    return applicationState.plumbers.map(plumber => ({...plumber}))
+}
+
+// sending a request that will take in some data and display in on the screen
 export const sendRequest = (userServiceRequest) => {
     const fetchOptions = {
         method: "POST",
@@ -52,23 +67,23 @@ export const deleteRequest = (id) => {
         )
 }
 
-export const saveCompletion = (obj) => {
+// export const saveCompletion = (saveCompletion) => {
     
-}
+// }
 
-export const postCompletions = (postCompletions) => {
-    const postCompletedOrders = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(postCompletions)
-    }
+// export const postCompletions = (postCompletions) => {
+//     const postCompletedOrders = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(postCompletions)
+//     }
 
 
-    return fetch(`${API}/completions`, postCompletedOrders)
-        .then(response => response.json())
-        .then(() => {
-            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-        })
-}
+//     return fetch(`${API}/completions`, postCompletedOrders)
+//         .then(response => response.json())
+//         .then(() => {
+//             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+//         })
+// }
