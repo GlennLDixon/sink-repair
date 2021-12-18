@@ -1,5 +1,6 @@
 import { getRequest} from "./dataAccess.js";
 import { deleteRequest } from "./dataAccess.js";
+import { getPlumbers } from "./dataAccess.js";
 
 const mainContainer = document.querySelector("#container")
 
@@ -43,26 +44,24 @@ mainContainer.addEventListener(
 
 
 const convertRequestToListElement = (request) => {
-    let html = `
+    const plumbers = getPlumbers()
+    return  `
+            <select class="plumbers" id="plumbers">
+            <option value="">Choose</option>
+            ${
+                plumbers.map(
+                    plumber => {
+                        return `<option value="${request.id}--${plumber.id}">${plumber.name}</option>`
+                    }
+                ).join("")
+            }
+            </select>
         <li>${request.description}
         <button class="request_delete"
             id="request--${request.id}">
             Delete
         </button>
     </li>`
-
-    html += `<select class="plumbers" id="plumbers">
-    <option value="">Choose</option>
-    ${
-        plumbers.map(
-            plumber => {
-                return `<option value="${request.id}--${plumber.id}">${plumber.name}</option>`
-            }
-        ).join("")
-    }
-    </select>`
-
-    return html
 }
 
 export const Requests = () => {
