@@ -1,6 +1,4 @@
-import { getRequest} from "./dataAccess.js";
-import { deleteRequest } from "./dataAccess.js";
-import { getPlumbers } from "./dataAccess.js";
+import { getRequest, deleteRequest, getPlumbers, saveCompletion} from "./dataAccess.js";
 
 const mainContainer = document.querySelector("#container")
 
@@ -19,18 +17,18 @@ mainContainer.addEventListener(
 
             /*
                 This object should have 3 properties
-                   1. requestId
-                   2. plumberId
-                   3. date_created
+                1. requestId
+                2. plumberId
+                3. date_created
             */
             // change name to requests    
-            const orders = {
-                requestId: 1,
-                plumberId: 1,
-                date_created: 1614659931693
+            const completion = {
+                requestId: requestId,
+                plumberId: plumberId,
+                date_created: Date.now()
             }
             
-            const completion = { }
+            saveCompletion(completion)
 
             /*
                 Invoke the function that performs the POST request
@@ -46,17 +44,18 @@ mainContainer.addEventListener(
 const convertRequestToListElement = (request) => {
     const plumbers = getPlumbers()
     return  `
-            <select class="plumbers" id="plumbers">
-            <option value="">Choose</option>
-            ${
-                plumbers.map(
-                    plumber => {
-                        return `<option value="${request.id}--${plumber.id}">${plumber.name}</option>`
-                    }
-                ).join("")
-            }
-            </select>
-        <li>${request.description}
+    <li>
+        ${request.description}
+        <select class="plumbers" id="plumbers">
+        <option value="">Choose</option>
+        ${
+            plumbers.map(
+                plumber => {
+                    return `<option value="${request.id}--${plumber.id}">${plumber.name}</option>`
+                }
+            ).join("")
+        }
+        </select>
         <button class="request_delete"
             id="request--${request.id}">
             Delete
