@@ -1,6 +1,7 @@
 const applicationState = {
     requests: [],
-    plumbers: []
+    plumbers: [],
+    completions: []
 }
 
 const mainContainer = document.querySelector("#container")
@@ -24,9 +25,9 @@ export const fetchPlumbers = () => {
     return fetch(`${API}/plumbers`)
         .then(response => response.json())
         .then(
-            (Plumbers) => {
+            (servicePlumbers) => {
                 // Store the external state in application state
-                applicationState.plumbers = Plumbers
+                applicationState.plumbers = servicePlumbers
             }
         )
 }
@@ -67,23 +68,33 @@ export const deleteRequest = (id) => {
         )
 }
 
-// export const saveCompletion = (saveCompletion) => {
-    
-// }
-
-// export const postCompletions = (postCompletions) => {
-//     const postCompletedOrders = {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(postCompletions)
-//     }
+export const saveCompletion = (saveCompletion) => {
+    const fetchCompletions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(saveCompletion)
+    }
+    const mainContainer = document.querySelector("#container")
 
 
-//     return fetch(`${API}/completions`, postCompletedOrders)
-//         .then(response => response.json())
-//         .then(() => {
-//             mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-//         })
-// }
+    return fetch(`${API}/completions`, fetchCompletions)
+        .then(response => response.json())
+        .then(() => {
+            //userServiceRequest.POST -> PHP not JS 
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+
+        })
+}
+
+export const fetchCompletions = () => {
+        return fetch(`${API}/completions`)
+        .then(response => response.json())
+        .then(
+            (completedRequests) => {
+                // Store the external state in application state
+                applicationState.completions = completedRequests
+            }
+        )
+}
