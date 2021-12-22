@@ -17,6 +17,7 @@ export const fetchRequests = () => {
             (serviceRequests) => {
                 // Store the external state in application state
                 applicationState.requests = serviceRequests
+
             }
         )
 }
@@ -34,7 +35,7 @@ export const fetchPlumbers = () => {
 
 // getting the requests that is stored within applicationState and exporting the data
 export const getRequest = () => {
-    return applicationState.requests.map(request => ({...request}))
+    return applicationState.requests.sort((a,b) => (b.neededby - a.neededby) ? -1 : 1)
 }
 
 export const getPlumbers = () => {
@@ -59,6 +60,7 @@ export const sendRequest = (userServiceRequest) => {
         })
 }
 
+// fetch method that would deleted the request with the selected id
 export const deleteRequest = (id) => {
     return fetch(`${API}/requests/${id}`, { method: "DELETE" })
         .then(
@@ -67,6 +69,7 @@ export const deleteRequest = (id) => {
             }
         )
 }
+
 
 export const saveCompletion = (saveCompletion) => {
     const fetchCompletions = {
@@ -79,7 +82,7 @@ export const saveCompletion = (saveCompletion) => {
     const mainContainer = document.querySelector("#container")
 
 
-    return fetch(`${API}/completions`, fetchCompletions)
+    return fetch(`${API}/completions/`, fetchCompletions)
         .then(response => response.json())
         .then(() => {
             //userServiceRequest.POST -> PHP not JS 
@@ -89,12 +92,16 @@ export const saveCompletion = (saveCompletion) => {
 }
 
 export const fetchCompletions = () => {
-        return fetch(`${API}/completions`)
+        return fetch(`${API}/completions/`)
         .then(response => response.json())
         .then(
             (completedRequests) => {
                 // Store the external state in application state
                 applicationState.completions = completedRequests
+                let completed = applicationState.completions
+                if(completed.plumberId) {
+                
+                }
             }
         )
 }

@@ -28,6 +28,7 @@ mainContainer.addEventListener(
                 date_created: Date.now()
             }
             
+            
             saveCompletion(completion)
 
             /*
