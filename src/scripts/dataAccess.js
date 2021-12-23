@@ -42,6 +42,10 @@ export const getPlumbers = () => {
     return applicationState.plumbers.map(plumber => ({...plumber}))
 }
 
+export const getCompletions = () => {
+    return applicationState.plumbers.map(completed => ({...completed}))
+}
+
 // sending a request that will take in some data and display in on the screen
 export const sendRequest = (userServiceRequest) => {
     const fetchOptions = {
@@ -98,10 +102,7 @@ export const fetchCompletions = () => {
             (completedRequests) => {
                 // Store the external state in application state
                 applicationState.completions = completedRequests
-                let completed = applicationState.completions
-                if(completed.plumberId) {
                 
-                }
             }
         )
 }

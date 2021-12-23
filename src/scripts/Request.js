@@ -1,4 +1,4 @@
-import { getRequest, deleteRequest, getPlumbers, saveCompletion} from "./dataAccess.js";
+import { getRequest, getCompletions, deleteRequest, getPlumbers, saveCompletion} from "./dataAccess.js";
 
 const mainContainer = document.querySelector("#container")
 
@@ -27,10 +27,9 @@ mainContainer.addEventListener(
                 plumberId: plumberId,
                 date_created: Date.now()
             }
-            
+
             
             saveCompletion(completion)
-
             /*
                 Invoke the function that performs the POST request
                 to the `completions` resource for your API. Send the
@@ -44,6 +43,7 @@ mainContainer.addEventListener(
 
 const convertRequestToListElement = (request) => {
     const plumbers = getPlumbers()
+
     return  `
     <li>
         ${request.description}
@@ -76,4 +76,18 @@ export const Requests = () => {
     `
     return html
 
+}
+
+export const completed = () => {
+    const completed = getCompletions
+
+    let html = `
+    <ul> 
+        ${
+            completed.map(convertRequestToListElement).join("")
+        }
+    </ul>
+    `
+
+    return html
 }
